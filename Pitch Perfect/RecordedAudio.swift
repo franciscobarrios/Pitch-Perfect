@@ -13,3 +13,6 @@ class RecordedAudio: NSObject {
     var filePath: NSURL!
     var title: String!
 }
+
+var recordedAudio = RecordedAudio()
+

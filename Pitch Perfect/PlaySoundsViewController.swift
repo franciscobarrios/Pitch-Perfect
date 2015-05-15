@@ -9,14 +9,13 @@
 import UIKit
 import AVFoundation
 
-
 class PlaySoundsViewController: UIViewController {
     
-    var audioPlayer:AVAudioPlayer!
-    var receivedAudio:RecordedAudio!
+    var audioPlayer: AVAudioPlayer!
+    var receivedAudio: RecordedAudio!
     var audioEngine: AVAudioEngine!
     var audioFile: AVAudioFile!
-    
+
     let pitchEffect: AVAudioUnitTimePitch = AVAudioUnitTimePitch()
 
     
@@ -24,25 +23,11 @@ class PlaySoundsViewController: UIViewController {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
 
-        /*
-        
-        not necesary anymore
-        
-        if var filePath = NSBundle.mainBundle().pathForResource("movie_quote", ofType: "mp3"){
-            var filePathUrl = NSURL.fileURLWithPath(filePath)
-            
-        }else{
-            println("file not found!!!")
-        }
-        */
-        
+        // call audioEngine
         audioEngine = AVAudioEngine()
-        
         audioPlayer = AVAudioPlayer(contentsOfURL: receivedAudio.filePath, error: nil)
         audioPlayer.enableRate=true
-        
         audioFile = AVAudioFile(forReading: receivedAudio.filePath, error: nil)
-
     }
 
     override func didReceiveMemoryWarning() {
@@ -51,17 +36,11 @@ class PlaySoundsViewController: UIViewController {
     }
     
     @IBAction func playSoundSlow(sender: UIButton) {
-        audioPlayer.stop()
-        audioPlayer.rate=0.3
-        audioPlayer.currentTime=0.0
-        audioPlayer.play()
+        playSoundSlowOrFast(0.3)
     }
     
     @IBAction func playSoundFast(sender: UIButton) {
-        audioPlayer.stop()
-        audioPlayer.rate=2.5
-        audioPlayer.currentTime=0.0
-        audioPlayer.play()
+        playSoundSlowOrFast(2.5)
     }
     
     @IBAction func playDarthVaderAudio(sender: UIButton) {
@@ -72,13 +51,23 @@ class PlaySoundsViewController: UIViewController {
         playAudioWithVariablePitch(1200)
     }
     
-    
+    // Play recorded sound fast or slow
+    // if rate >1 then sound will be plays fast
+    // if rate <1 then sound will be plays slow
+    func playSoundSlowOrFast(rate: Float){
+
+        audioPlayer.stop()
+        audioEngine.stop()
+        audioEngine.reset()
+        audioPlayer.rate = rate
+        audioPlayer.currentTime=0.0
+        audioPlayer.play()
+    }
     
     func playAudioWithVariablePitch(pitch: Float){
         
         audioPlayer.stop()
         audioEngine.stop()
-        audioEngine.reset()
     
         var audioPlayerNode = AVAudioPlayerNode()
         audioEngine.attachNode(audioPlayerNode)
@@ -95,14 +84,13 @@ class PlaySoundsViewController: UIViewController {
         
         audioEngine.startAndReturnError(nil)
         audioPlayerNode.play()
-
     }
     
     @IBAction func stopPlaying(sender: UIButton) {
+
         if (audioPlayer.playing){
             audioPlayer.stop()
-        }else{
-            println("nothing to stop")
+            audioEngine.stop()
         }
     }
 }
