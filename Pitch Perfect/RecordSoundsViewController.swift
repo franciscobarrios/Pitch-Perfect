@@ -9,7 +9,6 @@
 import UIKit
 import AVFoundation
 
-
 class RecordSoundsViewController: UIViewController, AVAudioRecorderDelegate {
 
     @IBOutlet weak var recordButtonImage: UIButton!
@@ -37,10 +36,8 @@ class RecordSoundsViewController: UIViewController, AVAudioRecorderDelegate {
         // Dispose of any resources that can be recreated.
     }
 
-
     @IBAction func RecordAudio(sender: UIButton) {
 
-        println("In RecordAudio")
         stopButtonImage.hidden = false
         recordingInProgress.hidden = false
         recordingInProgress.text = "Recording ..."
@@ -54,7 +51,6 @@ class RecordSoundsViewController: UIViewController, AVAudioRecorderDelegate {
         let recordingName = formatter.stringFromDate(currentDateTime)+".wav"
         let pathArray = [dirPath, recordingName]
         let filePath = NSURL.fileURLWithPathComponents(pathArray)
-        println(filePath)
         
         var session = AVAudioSession.sharedInstance()
         session.setCategory(AVAudioSessionCategoryPlayAndRecord, error: nil)
@@ -66,13 +62,10 @@ class RecordSoundsViewController: UIViewController, AVAudioRecorderDelegate {
         audioRecorder.record()
     }
     
-    func audioRecorderDidFinishRecording(recorder: AVAudioRecorder!,
-        successfully flag: Bool) {
+    func audioRecorderDidFinishRecording(recorder: AVAudioRecorder!, successfully flag: Bool) {
 
             if(flag){
-                recordedAudio = RecordedAudio()
-                recordedAudio.filePath = recorder.url
-                recordedAudio.title = recorder.url.lastPathComponent
+                recordedAudio = RecordedAudio(title: recorder.url.lastPathComponent, recordingFilePath: recorder.url)
                 self.performSegueWithIdentifier("stopRecording", sender: recordedAudio)
             }else{
                 println("Error while recording!!!")
@@ -85,7 +78,6 @@ class RecordSoundsViewController: UIViewController, AVAudioRecorderDelegate {
 
         if(segue.identifier == "stopRecording"){
             let playSoundsVC: PlaySoundsViewController = segue.destinationViewController as! PlaySoundsViewController
-
             let data = sender as! RecordedAudio
             playSoundsVC.receivedAudio = data
         }
@@ -93,16 +85,13 @@ class RecordSoundsViewController: UIViewController, AVAudioRecorderDelegate {
     
     @IBAction func StopRecordingAudio(sender: UIButton) {
 
-        println("In StopRecordingAudio")
-        
         recordingInProgress.hidden = true
         stopButtonImage.hidden = true
         recordButtonImage.enabled = true
-        
         audioRecorder.stop()
+
         var audioSession = AVAudioSession.sharedInstance()
         audioSession.setActive(false, error: nil)
-
     }
 }
 
