@@ -12,7 +12,12 @@ class RecordedAudio: NSObject {
 
     var filePath: NSURL!
     var title: String!
+    
+    /// - title: Name of the saved file
+    /// - recordingFilePath: Path of the saved file
+    
+    init(title: String!, recordingFilePath: NSURL!) {
+        self.title = title
+        self.filePath = recordingFilePath
+    }
 }
-
-var recordedAudio = RecordedAudio()
-

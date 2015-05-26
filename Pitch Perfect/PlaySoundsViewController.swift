@@ -12,13 +12,12 @@ import AVFoundation
 class PlaySoundsViewController: UIViewController {
     
     var audioPlayer: AVAudioPlayer!
-    var receivedAudio: RecordedAudio!
     var audioEngine: AVAudioEngine!
     var audioFile: AVAudioFile!
+    var receivedAudio: RecordedAudio!
 
     let pitchEffect: AVAudioUnitTimePitch = AVAudioUnitTimePitch()
 
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
@@ -26,7 +25,7 @@ class PlaySoundsViewController: UIViewController {
         // call audioEngine
         audioEngine = AVAudioEngine()
         audioPlayer = AVAudioPlayer(contentsOfURL: receivedAudio.filePath, error: nil)
-        audioPlayer.enableRate=true
+        audioPlayer.enableRate = true
         audioFile = AVAudioFile(forReading: receivedAudio.filePath, error: nil)
     }
 
@@ -51,19 +50,27 @@ class PlaySoundsViewController: UIViewController {
         playAudioWithVariablePitch(1200)
     }
     
-    // Play recorded sound fast or slow
-    // if rate >1 then sound will be plays fast
-    // if rate <1 then sound will be plays slow
+    /// Play recorded sound fast or slow:
+    ///
+    /// - rate: is a float
+    /// - default value is 1.0
+    /// - 2.0 means the sound will be played double speed
+    /// - 0.5 means the sound will be played half speed
     func playSoundSlowOrFast(rate: Float){
 
         audioPlayer.stop()
         audioEngine.stop()
         audioEngine.reset()
         audioPlayer.rate = rate
-        audioPlayer.currentTime=0.0
+        audioPlayer.currentTime = 0.0
         audioPlayer.play()
     }
     
+    /// Play recorded sound like Darth Vader or Chipmunk
+    ///
+    /// - pitch: is a Float between -2400 and 2400
+    /// - if pitch < 0 and < 2400 then sound will like DarthVader
+    /// - if pitch > 0 and > -2400 sound will be plays like Chipmunk
     func playAudioWithVariablePitch(pitch: Float){
         
         audioPlayer.stop()
@@ -88,9 +95,7 @@ class PlaySoundsViewController: UIViewController {
     
     @IBAction func stopPlaying(sender: UIButton) {
 
-        if (audioPlayer.playing){
-            audioPlayer.stop()
-            audioEngine.stop()
-        }
+        audioPlayer.stop()
+        audioEngine.stop()
     }
 }
