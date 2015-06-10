@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7702" systemVersion="14E17e" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="U4x-sZ-Hzp">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7706" systemVersion="14E26a" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="U4x-sZ-Hzp">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7701"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
         <capability name="Alignment constraints with different attributes" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
@@ -32,9 +32,6 @@
                                 <fontDescription key="fontDescription" type="system" weight="light" pointSize="17"/>
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
-                                <variation key="widthClass=compact" misplaced="YES">
-                                    <rect key="frame" x="201" y="358" width="0.0" height="0.0"/>
-                                </variation>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yRH-N8-NrD">
                                 <rect key="frame" x="-23" y="-15" width="46" height="30"/>
@@ -88,9 +85,9 @@
                     </view>
                     <navigationItem key="navigationItem" title="Record" id="p5i-sd-o2i"/>
                     <connections>
-                        <outlet property="recordButtonImage" destination="xqg-sS-EcK" id="Mv4-5t-g6l"/>
-                        <outlet property="recordingInProgress" destination="VCe-wz-bbz" id="l8C-xv-hKD"/>
-                        <outlet property="stopButtonImage" destination="yRH-N8-NrD" id="ifT-O9-aym"/>
+                        <outlet property="recordButton" destination="xqg-sS-EcK" id="ZtP-91-Gl2"/>
+                        <outlet property="recordingLabel" destination="VCe-wz-bbz" id="OG5-Md-yWZ"/>
+                        <outlet property="stopButton" destination="yRH-N8-NrD" id="oU0-vo-SgV"/>
                         <segue destination="keL-JH-0oM" kind="show" identifier="stopRecording" id="qS1-9M-Tnh"/>
                     </connections>
                 </viewController>

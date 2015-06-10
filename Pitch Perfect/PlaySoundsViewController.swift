@@ -62,6 +62,7 @@ class PlaySoundsViewController: UIViewController {
     func playAudioWithVariableRate(rate: Float){
 
         stopAllAudio()
+        
         audioPlayer.rate = rate
         audioPlayer.currentTime = 0.0
         audioPlayer.play()
@@ -74,9 +75,8 @@ class PlaySoundsViewController: UIViewController {
     /// - if pitch > 0 and > -2400 sound will be plays like Chipmunk
     func playAudioWithVariablePitch(pitch: Float){
         
-        audioPlayer.stop()
-        audioEngine.stop()
-    
+        stopAllAudio()
+        
         var audioPlayerNode = AVAudioPlayerNode()
         audioEngine.attachNode(audioPlayerNode)
         
