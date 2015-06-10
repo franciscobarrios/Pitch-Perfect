@@ -35,11 +35,11 @@ class PlaySoundsViewController: UIViewController {
     }
     
     @IBAction func playSoundSlow(sender: UIButton) {
-        playSoundSlowOrFast(0.3)
+        playAudioWithVariableRate(0.3)
     }
     
     @IBAction func playSoundFast(sender: UIButton) {
-        playSoundSlowOrFast(2.5)
+        playAudioWithVariableRate(2.5)
     }
     
     @IBAction func playDarthVaderAudio(sender: UIButton) {
@@ -49,18 +49,19 @@ class PlaySoundsViewController: UIViewController {
     @IBAction func playChipmunkAudio(sender: UIButton) {
         playAudioWithVariablePitch(1200)
     }
-    
+    @IBAction func stopPlaying(sender: UIButton) {
+        stopAllAudio()
+    }
+
     /// Play recorded sound fast or slow:
     ///
     /// - rate: is a float
     /// - default value is 1.0
     /// - 2.0 means the sound will be played double speed
     /// - 0.5 means the sound will be played half speed
-    func playSoundSlowOrFast(rate: Float){
+    func playAudioWithVariableRate(rate: Float){
 
-        audioPlayer.stop()
-        audioEngine.stop()
-        audioEngine.reset()
+        stopAllAudio()
         audioPlayer.rate = rate
         audioPlayer.currentTime = 0.0
         audioPlayer.play()
@@ -92,11 +93,14 @@ class PlaySoundsViewController: UIViewController {
         audioEngine.startAndReturnError(nil)
         audioPlayerNode.play()
     }
-    
-    @IBAction func stopPlaying(sender: UIButton) {
 
-            audioPlayer.stop()
-            audioEngine.stop()
+    /// Stop and reset all audio
+    func stopAllAudio(){
+        
+        audioPlayer.stop()
+        audioEngine.stop()
+        audioEngine.reset()
 
     }
+    
 }
